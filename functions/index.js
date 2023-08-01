@@ -9,7 +9,6 @@
 
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
-const logger = require("firebase-functions/logger");
 const {initializeApp} = require("firebase-admin/app");
 const {getFirestore} = require("firebase-admin/firestore");
 
@@ -24,8 +23,17 @@ exports.helloWorld = onRequest((request, response) => {
   response.send("Hello from Firebase!");
 });
 
-exports.onSearch = onRequest((request, response) => {
-  logger.info("Received results on onSearch", {body: JSON.stringify(request.body), 
-    headers: JSON.stringify(request.headers)});
-  response.send({message: "success"});
+exports.onSearch = onRequest(async (request, response) => {
+  
+  const doc = {body: request.body, headers: request.headers};
+  logger.info("Received results on onSearch", doc);
+  
+  const writeResult = await getFirestore()
+      .collection("on_search_results")
+      .add(doc);
+
+      // Send back a message that we've successfully written the message
+  logger.info("Final result", JSON.stringify(writeResult));
+  response.json({message: `Message with ID: ${writeResult.id} added.`});
+  
 });
