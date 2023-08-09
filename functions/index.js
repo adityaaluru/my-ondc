@@ -7,25 +7,25 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
-const {initializeApp} = require("firebase-admin/app");
-const {getFirestore} = require("firebase-admin/firestore");
-
-var blake2b = require('blake2b');
+import {onRequest} from "firebase-functions/v2/https";
+import logger from "firebase-functions/logger";
+import {initializeApp} from "firebase-admin/app";
+import {getFirestore} from "firebase-admin/firestore";
+import { ItemSearchRequest } from "./models.js";
+import ONDCClient from "./ondc-client.js";
 
 initializeApp();
 
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 
-exports.helloWorld = onRequest((request, response) => {
+const helloWorld = onRequest((request, response) => {
   logger.info("Hello logs!", {body: JSON.stringify(request.body), 
     headers: JSON.stringify(request.headers)});
   response.send("Hello from Firebase!");
 });
 
-exports.onSearch = onRequest(async (request, response) => {
+const onSearch = onRequest(async (request, response) => {
   
   const doc = {body: request.body, headers: request.headers};
   logger.info("Received results on onSearch", doc);
@@ -40,26 +40,21 @@ exports.onSearch = onRequest(async (request, response) => {
   
 });
 
-exports.search = onRequest(async (request, response) => {
+const search = onRequest(async (request, response) => {
   
   const doc = {body: request.body, headers: request.headers};
-  const result = {};
-  logger.info("Received search request", doc);
+  logger.info("Request received:", doc);
 
-  //Creating a payload hash
-  result.reqToHash = request.body.test;
+  const {itemSearchTerms, city, deliveryLocation, transactionId} = request.body;
+  const {areaCode,gps} = deliveryLocation
+  const gwRequest = new ItemSearchRequest(itemSearchTerms,city,areaCode,gps,transactionId);
+  logger.info("Item Search Request(STRING):", gwRequest.toString());
 
-/**
- * Generate UTF-8 byte array from json payload;
-Generate Blake2b hash from UTF-8 byte array;
-Create base64 encoding of Blake2b hash. This becomes the digest for signing;
-Sign the request, using your private signing key, and add the signature to the request authorization heade
+  const client = new ONDCClient();
+  const gwResponse = await client.search(gwRequest.toJSON());
+  logger.info("Item Search Response:", gwResponse.status,"|",gwResponse.statusText);
 
- */
-
-
-response.json(result);
-
-
-
+  response.json(gwResponse.data);
 });
+
+export {helloWorld,onSearch,search};

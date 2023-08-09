@@ -11,3 +11,6 @@ Deploy only the functions in the project
 
 Deploy only a specific function (search in this example)
 `firebase deploy --only functions:search`
+
+Test signature utility locally. This will create a signature.txt file which can be used in the postman as an Authoriztion header value
+`node local-es6.js`
