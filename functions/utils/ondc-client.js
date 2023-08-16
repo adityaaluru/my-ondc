@@ -1,5 +1,5 @@
 import axios from "axios";
-import {signRequest} from "./utils.js";
+import {signRequest} from "./auth.js";
 import logger from "firebase-functions/logger";
 
 export default class ONDCClient{
