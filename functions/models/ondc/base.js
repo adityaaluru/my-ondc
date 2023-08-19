@@ -14,23 +14,27 @@ export class BaseRequest{
 
 export class BaseResponse{
     res = {};
-    resContext = {};
+    resContext = {}
     resMessage = {}
-    bppId = 
-    bppUri = 
+    resError = {}
 
     constructor(response){
-        this.res = JSON.parse(response);
-        this.resContext = res.context;
-        this.resMessage = res.message;
-        this.bppId = res.context?.bpp_id;
-        this.bppUri = res.context?.bpp_uri;
+        this.res = response;
+        this.resContext = this.res.context;
+        this.resMessage = this.res.message;
+        this.resError = this.res.error;
     }
 
     getContext(){
         return this.resContext;
     }
+
     getMessage(){
         return this.resMessage;
     }
+
+    getError(){
+        return this.resError;
+    }
+
 }
