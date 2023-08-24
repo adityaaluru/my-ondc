@@ -17,7 +17,7 @@ export class ProductService{
       const prevPage = pageNo - 1;
 
       logger.info("inputs received: ",searchTerms, cityCode, pageSize, pageNo)
-      
+       
       const products = ProductService.database.collection('Products')
       const findResults = await products.find({
         name: { $regex: searchTerms, $options: 'i' },
@@ -26,7 +26,7 @@ export class ProductService{
       }).
 //      skip(prevPage*pageSize).
       limit(pageSize).toArray();
-      
+
 
       logger.info("result set size: ",findResults.length);
       response.json({pageNo: pageNo, pageSize: pageSize, resultCount: findResults.length,data: findResults})
