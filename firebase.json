@@ -27,6 +27,12 @@
     ],
     "rewrites": [
       {
+        "source": "/commerce/product/search",
+        "function": "productSearch",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
         "source": "/on_search",
         "function": "onSearch",
         "region": "us-central1",
