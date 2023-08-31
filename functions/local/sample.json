@@ -1,0 +1,52 @@
+{
+    "id": "IGO_Seller_0003|nike_ondc_001",
+    "name": "Nike Shoe 1",
+    "description": "nike shoe long desp",
+    "category": "RET-12-14",
+    "images": [
+      "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e8e530a3-2317-4783-819b-40860281daaf/streakfly-road-racing-shoes-V17qZm.png",
+      "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e8e530a3-2317-4783-819b-40860281daaf/streakfly-road-racing-shoes-V17qZm.png"
+    ],
+    "price": {
+      "sellPrice": "200",
+      "maxSellPrice": "260",
+      "currency": "INR"
+    },
+    "inventory": {
+      "available": "20",
+      "maxPerOrder": "2"
+    },
+    "vendor": {
+      "cityCode": "std:080",
+      "countryCode": "IND",
+      "bpp": {
+        "id": "techondc.hexbit.io",
+        "uri": "https://techondc.hexbit.io/",
+        "name": "Is Going Online",
+        "images": [
+          "https://www.ndhgo.com/wp-content/uploads/2021/05/NDHGO-Logo-2021-01.png"
+        ]
+      },
+      "id": "IGO_Seller_0003",
+      "name": "IGO_Seller_0003",
+      "images": [
+        "https://ndh.imgix.net/ndh-stores/stores_img/1669702828392.png"
+      ],
+      "contact": {
+        "phone": "9886098860",
+        "email": "abc@xyz.com"
+      },
+      "location": {}
+    },
+    "fulfillmentTypes": [],
+    "audit": {
+      "lastUpdateBy": {
+        "transactionId": "dc66f73f-30d2-4069-b6b4-6e54407faa20",
+        "messageId": "80349397-ae23-4186-8eaf-4540848f44b9",
+        "dateTime": "2023-08-19T12:40:07.108Z",
+        "action": "on_search"
+      },
+      "apiVersion": "1.1.0",
+      "ttl": "P1D"
+    }
+  }

@@ -22,6 +22,7 @@ export class ProductService{
       const findResults = await products.find({
         name: { $regex: searchTerms, $options: 'i' },
         description: { $regex: searchTerms, $options: 'i' },
+        category: { $regex: searchTerms, $options: 'i' },
         'vendor.cityCode': cityCode 
       }).
 //      skip(prevPage*pageSize).
