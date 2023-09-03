@@ -13,8 +13,21 @@ const USER = 'neo4j'
 const PASSWORD = '57wnpjjQy0TXDlebK7-XvoYcwJRbafAY4bvAIpcxv3E'
 const driver = neo4j.driver(URI, neo4j.auth.basic(USER, PASSWORD))
 
-const serverInfo = await driver.getServerInfo()
-console.log(serverInfo)
+//const serverInfo = await driver.getServerInfo()
+//console.log(serverInfo)
+
+var limitSize = 100;
+var skipSize = 0;
+
+if(process.argv.length>2){
+    if(process.argv[2] && !isNaN(process.argv[2])){
+        skipSize = parseInt(process.argv[2],10)
+    }
+    if(process.argv[3] && !isNaN(process.argv[3])){
+        limitSize = parseInt(process.argv[3],10)
+    }
+}
+console.log("Going with limitSize: "+limitSize+" and skipSize: "+skipSize)
 
 const transformProduct = (dbProduct) => {
     return {
@@ -50,31 +63,21 @@ const transformProduct = (dbProduct) => {
 
 const createBPP = async (bpp) => {
     const results = await driver.executeQuery(
-        'MERGE (bpp:BProvider {id: $id})',
+        'MERGE (bpp:BProvider {id: $id}) \
+         ON CREATE \
+         SET bpp.name = $name\
+         SET bpp.uri = $uri',
         bpp
     )
-    if(results.summary.counters.containsUpdates()){
-        const results = await driver.executeQuery(
-            'MATCH (bpp:BProvider {id: $id})\
-            SET bpp.name = $name\
-            SET bpp.uri = $uri',
-            bpp
-        )
-    }
 }
 
 const createCity = async (city) => {
     const results = await driver.executeQuery(
-        'MERGE (c:City {id: $id})',
+        'MERGE (c:City {id: $id})\
+        ON CREATE \
+        SET c.country = $country',
         city
     )
-    if(results.summary.counters.containsUpdates()){
-        const results = await driver.executeQuery(
-            'MATCH (c:City {id: $id})\
-            SET c.country = $country',
-            city
-        )
-    }
 }
 
 const createCategory = async (category) => {
@@ -86,73 +89,60 @@ const createCategory = async (category) => {
 
 const createVendor = async(vendor,vendorRelations) => {
     const results = await driver.executeQuery(
-        'MERGE (v:Vendor {id: $id})',
-        vendor
+        'MERGE (v:Vendor {id: $id})\
+        ON CREATE \
+        SET v.name = $name\
+        SET v.phone = $phone\
+        SET v.email = $email',
+    vendor
     )
-    //console.log("MERGE Vendor Results: "+JSON.stringify(results.summary.counters.updates()))
-    if(results.summary.counters.containsUpdates()){
-        const updateVendorResults = await driver.executeQuery(
-            'MATCH (v:Vendor {id: $id})\
-            SET v.name = $name\
-            SET v.phone = $phone\
-            SET v.email = $email',
-            vendor
-        )
+    const createVendorBPPRelResults = await driver.executeQuery(
+        'MATCH (v:Vendor), (bpp:BProvider)\
+        WHERE v.id = $vendorId AND bpp.id = $bppId\
+        CREATE (bpp)-[r:HOSTS]->(v)\
+        RETURN type(r)',
+        vendorRelations
+    )
 
-        const createVendorBPPRelResults = await driver.executeQuery(
-            'MATCH (v:Vendor), (bpp:BProvider)\
-            WHERE v.id = $vendorId AND bpp.id = $bppId\
-            CREATE (bpp)-[r:HOSTS]->(v)\
-            RETURN type(r)',
-            vendorRelations
-        )
-
-        const createVendorCityRelResults = await driver.executeQuery(
-            'MATCH (v:Vendor), (c:City)\
-            WHERE v.id = $vendorId AND c.id = $cityId\
-            CREATE (v)-[r:IS_LOCATED_IN]->(c)\
-            RETURN type(r)',
-            vendorRelations
-        )
-    }
+    const createVendorCityRelResults = await driver.executeQuery(
+        'MATCH (v:Vendor), (c:City)\
+        WHERE v.id = $vendorId AND c.id = $cityId\
+        CREATE (v)-[r:IS_LOCATED_IN]->(c)\
+        RETURN type(r)',
+        vendorRelations
+    )
 }
 
 const createProduct = async (product,productRelations) => {
     const results = await driver.executeQuery(
-        'MERGE (p:Product {id: $id})',
-        product
+        'MERGE (p:Product {id: $id})\
+        ON CREATE \
+        SET p.name = $name\
+        SET p.description = $description\
+        SET p.sellPrice = $sellPrice\
+        SET p.maxSellPrice = $maxSellPrice\
+        SET p.currency = $currency\
+        SET p.inventoryAvlbl = $inventoryAvlbl',
+    product
     )
-    if(results.summary.counters.containsUpdates()){
-        const updateVendorResults = await driver.executeQuery(
-            'MATCH (p:Product {id: $id})\
-            SET p.name = $name\
-            SET p.description = $description\
-            SET p.sellPrice = $sellPrice\
-            SET p.maxSellPrice = $maxSellPrice\
-            SET p.currency = $currency\
-            SET p.inventoryAvlbl = $inventoryAvlbl',
-            product
-        )
-
-        const createProductVendorRelResults = await driver.executeQuery(
-            'MATCH (p:Product), (v:Vendor)\
-            WHERE p.id = $productId AND v.id = $vendorId\
-            CREATE (v)-[r:SELLS]->(p)\
-            RETURN type(r)',
-            productRelations
-        )
-        const createProductCategoryRelResults = await driver.executeQuery(
-            'MATCH (p:Product), (c:Category)\
-            WHERE p.id = $productId AND c.id = $categoryId\
-            CREATE (p)-[r:BELONGS_TO]->(c)\
-            RETURN type(r)',
-            productRelations
-        )
-    }
+    const createProductVendorRelResults = await driver.executeQuery(
+        'MATCH (p:Product), (v:Vendor)\
+        WHERE p.id = $productId AND v.id = $vendorId\
+        CREATE (v)-[r:SELLS]->(p)\
+        RETURN type(r)',
+        productRelations
+    )
+    const createProductCategoryRelResults = await driver.executeQuery(
+        'MATCH (p:Product), (c:Category)\
+        WHERE p.id = $productId AND c.id = $categoryId\
+        CREATE (p)-[r:BELONGS_TO]->(c)\
+        RETURN type(r)',
+        productRelations
+    )
 }
 
 try {
-    const productsFromDB = await products.find({}).limit(100).toArray();
+    const productsFromDB = await products.find({}).skip(skipSize).limit(limitSize).toArray();
     console.log("Received "+productsFromDB.length+" products from MongoDB");
     var i = 1;
     var msg = "Started looping...";
