@@ -1,5 +1,13 @@
 import neo4j from "neo4j-driver";
+import {MongoClient} from "mongodb";
 
+//MongoDB
+const mongoUrl = "mongodb+srv://admin:admin@cluster0.g0dipxl.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(mongoUrl);
+const database = client.db('ondc');
+const products = database.collection('Products');
+
+//Neo4j
 const URI = 'neo4j+s://2bc08d02.databases.neo4j.io'
 const USER = 'neo4j'
 const PASSWORD = '57wnpjjQy0TXDlebK7-XvoYcwJRbafAY4bvAIpcxv3E'
@@ -8,34 +16,34 @@ const driver = neo4j.driver(URI, neo4j.auth.basic(USER, PASSWORD))
 const serverInfo = await driver.getServerInfo()
 console.log(serverInfo)
 
-const getProduct = () => {
+const transformProduct = (dbProduct) => {
     return {
         vendor: {
-            id: "IGO_Seller_0003",
-            name: "IGO_Seller_0003",
-            phone: "9886098860",
-            email: "abc@xyz.com"
+            id: dbProduct.vendor?.id,//"IGO_Seller_0003",
+            name: dbProduct.vendor?.name,//"IGO_Seller_0003",
+            phone: dbProduct.vendor?.contact?.phone,//"9886098860",
+            email: dbProduct.vendor?.contact?.email, //"abc@xyz.com"
         },
         product: {
-            id: "IGO_Seller_0003|nike_ondc_001",
-            name: "Nike Shoe 1",
-            description: "nike shoe long desp",
-            sellPrice: 200,
-            maxSellPrice:260,
-            currency:"INR",
-            inventoryAvlbl: 20
+            id: dbProduct.id,//"IGO_Seller_0003|nike_ondc_001",
+            name: dbProduct.name, //"Nike Shoe 1",
+            description: dbProduct.description,//"nike shoe long desp",
+            sellPrice: dbProduct.price?.sellPrice,//200,
+            maxSellPrice: dbProduct.price?.maxSellPrice,//260,
+            currency: dbProduct.price?.currency,//"INR",
+            inventoryAvlbl: dbProduct.inventory?.available,//20
         },
         category: {
-            id: "RET-12-14"
+            id: dbProduct.category//"RET-12-14"
         },
         bpp: {
-            id:"techondc.hexbit.io",
-            name:"Is Going Online",
-            uri:"https://techondc.hexbit.io/"
+            id: dbProduct.vendor?.bpp?.id,//"techondc.hexbit.io",
+            name: dbProduct.vendor?.bpp?.name,//"Is Going Online",
+            uri:dbProduct.vendor?.bpp?.uri//"https://techondc.hexbit.io/"
         },
         city: {
-            id: "std:080",
-            country: "IND"
+            id: dbProduct.vendor?.cityCode,//"std:080",
+            country: dbProduct.vendor?.countryCode//"IND"
         }
     }
 }
@@ -45,7 +53,6 @@ const createBPP = async (bpp) => {
         'MERGE (bpp:BProvider {id: $id})',
         bpp
     )
-    console.log("MERGE BPP Results: "+JSON.stringify(results.summary.counters.updates()))
     if(results.summary.counters.containsUpdates()){
         const results = await driver.executeQuery(
             'MATCH (bpp:BProvider {id: $id})\
@@ -61,7 +68,6 @@ const createCity = async (city) => {
         'MERGE (c:City {id: $id})',
         city
     )
-    console.log("MERGE City Results: "+JSON.stringify(results.summary.counters.updates()))
     if(results.summary.counters.containsUpdates()){
         const results = await driver.executeQuery(
             'MATCH (c:City {id: $id})\
@@ -76,7 +82,6 @@ const createCategory = async (category) => {
         'MERGE (c:Category {id: $id})',
         category
     )
-    console.log("MERGE Category Results: "+JSON.stringify(results.summary.counters.updates()))
 }
 
 const createVendor = async(vendor,vendorRelations) => {
@@ -84,7 +89,7 @@ const createVendor = async(vendor,vendorRelations) => {
         'MERGE (v:Vendor {id: $id})',
         vendor
     )
-    console.log("MERGE Vendor Results: "+JSON.stringify(results.summary.counters.updates()))
+    //console.log("MERGE Vendor Results: "+JSON.stringify(results.summary.counters.updates()))
     if(results.summary.counters.containsUpdates()){
         const updateVendorResults = await driver.executeQuery(
             'MATCH (v:Vendor {id: $id})\
@@ -101,7 +106,6 @@ const createVendor = async(vendor,vendorRelations) => {
             RETURN type(r)',
             vendorRelations
         )
-        console.log("BPP Vendor Relation Results: "+JSON.stringify(createVendorBPPRelResults.summary.counters.updates()))
 
         const createVendorCityRelResults = await driver.executeQuery(
             'MATCH (v:Vendor), (c:City)\
@@ -110,7 +114,6 @@ const createVendor = async(vendor,vendorRelations) => {
             RETURN type(r)',
             vendorRelations
         )
-        console.log("Vendor City Relation Results: "+JSON.stringify(createVendorCityRelResults.summary.counters.updates()))
     }
 }
 
@@ -119,7 +122,6 @@ const createProduct = async (product,productRelations) => {
         'MERGE (p:Product {id: $id})',
         product
     )
-    console.log("MERGE Product Results: "+JSON.stringify(results.summary.counters.updates()))
     if(results.summary.counters.containsUpdates()){
         const updateVendorResults = await driver.executeQuery(
             'MATCH (p:Product {id: $id})\
@@ -139,8 +141,6 @@ const createProduct = async (product,productRelations) => {
             RETURN type(r)',
             productRelations
         )
-        console.log("Product Vendor Relation Results: "+JSON.stringify(createProductVendorRelResults.summary.counters.updates()))
-
         const createProductCategoryRelResults = await driver.executeQuery(
             'MATCH (p:Product), (c:Category)\
             WHERE p.id = $productId AND c.id = $categoryId\
@@ -148,29 +148,46 @@ const createProduct = async (product,productRelations) => {
             RETURN type(r)',
             productRelations
         )
-        console.log("Product Category Relation Results: "+JSON.stringify(createProductCategoryRelResults.summary.counters.updates()))
     }
 }
 
 try {
-    const record = getProduct();
+    const productsFromDB = await products.find({}).limit(100).toArray();
+    console.log("Received "+productsFromDB.length+" products from MongoDB");
+    var i = 1;
+    var msg = "Started looping...";
 
-    await createBPP(record.bpp);
-    await createCategory(record.category);
-    await createCity(record.city);
-
-    const vendorId = record.vendor.id;
-    const cityId = record.city.id;
-    const bppId = record.bpp.id;
-    const productId = record.product.id;
-    const categoryId = record.category.id;
-    await createVendor(record.vendor,{vendorId, cityId, bppId});
-    await createProduct(record.product,{productId,vendorId,categoryId});
-
+    for(let dbProduct of productsFromDB){
+        try{
+            console.log("processing record: ",i)
+            i = i+1;
+            const record = transformProduct(dbProduct);
+    
+            await createBPP(record.bpp);
+            msg = "Created BPP"
+            await createCategory(record.category);
+            msg = "Created Category"
+            await createCity(record.city);
+            msg = "Created City"
+    
+            const vendorId = record.vendor.id;
+            const cityId = record.city.id;
+            const bppId = record.bpp.id;
+            const productId = record.product.id;
+            const categoryId = record.category.id;
+            await createVendor(record.vendor,{vendorId, cityId, bppId});
+            msg = "Created Vendor"
+            await createProduct(record.product,{productId,vendorId,categoryId});
+            msg = "Created Product"
+        }
+        catch(err) {
+            console.log("Error faced when processing record# "+i+". Error after - "+msg)
+            console.log(JSON.stringify(err))
+        }
+    }
 } catch(err){
-    console.log(err.message)
+    console.log(JSON.stringify(err))
 }
 
 await driver.close()
-
-
+await client.close()
