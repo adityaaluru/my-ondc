@@ -96,21 +96,24 @@ const createVendor = async(vendor,vendorRelations) => {
         SET v.email = $email',
     vendor
     )
-    const createVendorBPPRelResults = await driver.executeQuery(
-        'MATCH (v:Vendor), (bpp:BProvider)\
-        WHERE v.id = $vendorId AND bpp.id = $bppId\
-        CREATE (bpp)-[r:HOSTS]->(v)\
-        RETURN type(r)',
-        vendorRelations
-    )
-
-    const createVendorCityRelResults = await driver.executeQuery(
-        'MATCH (v:Vendor), (c:City)\
-        WHERE v.id = $vendorId AND c.id = $cityId\
-        CREATE (v)-[r:IS_LOCATED_IN]->(c)\
-        RETURN type(r)',
-        vendorRelations
-    )
+    //console.log(JSON.stringify(results))
+    //console.log("Node Created: ",JSON.stringify(results.summary.counters._stats.nodesCreated))
+    if(results.summary.counters._stats.nodesCreated > 0){
+        const createVendorBPPRelResults = await driver.executeQuery(
+            'MATCH (v:Vendor), (bpp:BProvider)\
+            WHERE v.id = $vendorId AND bpp.id = $bppId\
+            CREATE (bpp)-[r:HOSTS]->(v)\
+            RETURN type(r)',
+            vendorRelations
+        )
+        const createVendorCityRelResults = await driver.executeQuery(
+            'MATCH (v:Vendor), (c:City)\
+            WHERE v.id = $vendorId AND c.id = $cityId\
+            CREATE (v)-[r:IS_LOCATED_IN]->(c)\
+            RETURN type(r)',
+            vendorRelations
+        )
+    }
 }
 
 const createProduct = async (product,productRelations) => {
@@ -125,20 +128,22 @@ const createProduct = async (product,productRelations) => {
         SET p.inventoryAvlbl = $inventoryAvlbl',
     product
     )
-    const createProductVendorRelResults = await driver.executeQuery(
-        'MATCH (p:Product), (v:Vendor)\
-        WHERE p.id = $productId AND v.id = $vendorId\
-        CREATE (v)-[r:SELLS]->(p)\
-        RETURN type(r)',
-        productRelations
-    )
-    const createProductCategoryRelResults = await driver.executeQuery(
-        'MATCH (p:Product), (c:Category)\
-        WHERE p.id = $productId AND c.id = $categoryId\
-        CREATE (p)-[r:BELONGS_TO]->(c)\
-        RETURN type(r)',
-        productRelations
-    )
+    if(results.summary.counters._stats.nodesCreated > 0){
+        const createProductVendorRelResults = await driver.executeQuery(
+            'MATCH (p:Product), (v:Vendor)\
+            WHERE p.id = $productId AND v.id = $vendorId\
+            CREATE (v)-[r:SELLS]->(p)\
+            RETURN type(r)',
+            productRelations
+        )
+        const createProductCategoryRelResults = await driver.executeQuery(
+            'MATCH (p:Product), (c:Category)\
+            WHERE p.id = $productId AND c.id = $categoryId\
+            CREATE (p)-[r:BELONGS_TO]->(c)\
+            RETURN type(r)',
+            productRelations
+        )
+    }
 }
 
 try {
