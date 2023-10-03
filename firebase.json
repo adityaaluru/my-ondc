@@ -45,6 +45,12 @@
         "pinTag": true
       },
       {
+        "source": "/categories",
+        "function": "getCategories",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

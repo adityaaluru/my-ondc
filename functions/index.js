@@ -12,6 +12,7 @@ import logger from "firebase-functions/logger";
 import {initializeApp} from "firebase-admin/app";
 import { ONDCSearchService } from "./services/search.js";
 import { ProductService } from "./services/commerce.js";
+import { GraphService } from "./services/graph.js";
 
 initializeApp();
 
@@ -30,4 +31,7 @@ const search = onRequest(ONDCSearchService.search);
 const onSearch = onRequest(ONDCSearchService.onSearch);
 const productSearch = onRequest(ProductService.search);
 
-export {helloWorld,onSearch,search,productSearch};
+const getCategories = onRequest({ cors: false },GraphService.getAllCategories);
+
+
+export {helloWorld,onSearch,search,productSearch,getCategories};

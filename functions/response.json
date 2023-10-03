@@ -1,0 +1,1652 @@
+{
+    "keys": [
+        "cat",
+        "bt",
+        "sc",
+        "productCount"
+    ],
+    "records": [
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 132,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 255,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:132",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:255",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 255,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Topwear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:255"
+                },
+                {
+                    "low": 15310,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 0,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 128,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:0",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:128",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 128,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bottomwear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:128"
+                },
+                {
+                    "low": 3666,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 130,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 253,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:130",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:253",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 253,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Winter Wear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:253"
+                },
+                {
+                    "low": 2493,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 256,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 381,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:256",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:381",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 381,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Innerwear and Swimwear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:381"
+                },
+                {
+                    "low": 1762,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 1,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 129,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:1",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:129",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 129,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:129"
+                },
+                {
+                    "low": 1742,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 765,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 881,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:765",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:881",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 881,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Kurtas, Ethnic Sets and Bottoms"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:881"
+                },
+                {
+                    "low": 1180,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3703,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Footwear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3703"
+                },
+                {
+                    "identity": {
+                        "low": 3491,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 3597,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3703,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:3491",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3597",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3703"
+                },
+                {
+                    "identity": {
+                        "low": 3597,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Men's Footwear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3597"
+                },
+                {
+                    "low": 920,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 6066,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 6197,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:6066",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:6197",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 6197,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Fabrics"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:6197"
+                },
+                {
+                    "low": 534,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 2661,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 2764,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:2661",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:2764",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 2764,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Sleepwear"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:2764"
+                },
+                {
+                    "low": 122,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 1093,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:964",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:1093",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 1093,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Blazers, Waistcoats and Suits"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:1093"
+                },
+                {
+                    "low": 103,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 1599,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 1705,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:1599",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:1705",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 1705,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Tracksuits"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:1705"
+                },
+                {
+                    "low": 90,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 131,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 254,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:131",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:254",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 254,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Raincoats"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:254"
+                },
+                {
+                    "low": 34,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 24257,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 24365,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:24257",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:24365",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 24365,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Uber Urban Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:24365"
+                },
+                {
+                    "low": 28,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 6939,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 7070,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:6939",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:7070",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 7070,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Inspire Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:7070"
+                },
+                {
+                    "low": 23,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 3361,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 3490,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:3361",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3490",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 3490,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Sunshopping Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3490"
+                },
+                {
+                    "low": 21,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 3362,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 3491,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:3362",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3491",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 3491,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Crocks Club Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3491"
+                },
+                {
+                    "low": 15,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 8803,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 8934,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:8803",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:8934",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 8934,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Roy Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:8934"
+                },
+                {
+                    "low": 12,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 3360,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 3489,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:3360",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3489",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 3489,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "SUNSHOPPING Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3489"
+                },
+                {
+                    "low": 10,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 6940,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 7071,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 964,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:6940",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:7071",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:964"
+                },
+                {
+                    "identity": {
+                        "low": 7071,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "INSPIRE Clothing and Accessories"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:7071"
+                },
+                {
+                    "low": 4,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 7812,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 7942,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:7812",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:7942",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 7942,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Winsome Deal Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:7942"
+                },
+                {
+                    "low": 4,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 13153,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 13260,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:13153",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:13260",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 13260,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "YOFAMA Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:13260"
+                },
+                {
+                    "low": 4,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 16362,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 16494,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:16362",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:16494",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 16494,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Brand Trunk Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:16494"
+                },
+                {
+                    "low": 1,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 22781,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 22913,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 3702,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:22781",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:22913",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:3702"
+                },
+                {
+                    "identity": {
+                        "low": 22913,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "mentiezi Bags, Wallets & Belts"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:22913"
+                },
+                {
+                    "low": 1,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        },
+        {
+            "keys": [
+                "cat",
+                "bt",
+                "sc",
+                "productCount"
+            ],
+            "length": 4,
+            "_fields": [
+                {
+                    "identity": {
+                        "low": 13262,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Toys"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:13262"
+                },
+                {
+                    "identity": {
+                        "low": 13154,
+                        "high": 0
+                    },
+                    "start": {
+                        "low": 13261,
+                        "high": 0
+                    },
+                    "end": {
+                        "low": 13262,
+                        "high": 0
+                    },
+                    "type": "PART_OF",
+                    "properties": {},
+                    "elementId": "5:1d4b3034-afb2-4395-9fc3-2177e0f92409:13154",
+                    "startNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:13261",
+                    "endNodeElementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:13262"
+                },
+                {
+                    "identity": {
+                        "low": 13261,
+                        "high": 0
+                    },
+                    "labels": [
+                        "Category"
+                    ],
+                    "properties": {
+                        "id": "Party Supplies"
+                    },
+                    "elementId": "4:1d4b3034-afb2-4395-9fc3-2177e0f92409:13261"
+                },
+                {
+                    "low": 1,
+                    "high": 0
+                }
+            ],
+            "_fieldLookup": {
+                "cat": 0,
+                "bt": 1,
+                "sc": 2,
+                "productCount": 3
+            }
+        }
+    ],
+    "summary": {
+        "query": {
+            "text": "OPTIONAL MATCH (cat:Category)-[bt]-(sc:Category)-[po]-(p:Product)             RETURN cat,bt,sc,count(p) as productCount             ORDER BY productCount DESC",
+            "parameters": {}
+        },
+        "queryType": "r",
+        "counters": {
+            "_stats": {
+                "nodesCreated": 0,
+                "nodesDeleted": 0,
+                "relationshipsCreated": 0,
+                "relationshipsDeleted": 0,
+                "propertiesSet": 0,
+                "labelsAdded": 0,
+                "labelsRemoved": 0,
+                "indexesAdded": 0,
+                "indexesRemoved": 0,
+                "constraintsAdded": 0,
+                "constraintsRemoved": 0
+            },
+            "_systemUpdates": 0
+        },
+        "updateStatistics": {
+            "_stats": {
+                "nodesCreated": 0,
+                "nodesDeleted": 0,
+                "relationshipsCreated": 0,
+                "relationshipsDeleted": 0,
+                "propertiesSet": 0,
+                "labelsAdded": 0,
+                "labelsRemoved": 0,
+                "indexesAdded": 0,
+                "indexesRemoved": 0,
+                "constraintsAdded": 0,
+                "constraintsRemoved": 0
+            },
+            "_systemUpdates": 0
+        },
+        "plan": false,
+        "profile": false,
+        "notifications": [],
+        "server": {
+            "address": "c692095c.databases.neo4j.io:7687",
+            "agent": "Neo4j/5.12-aura",
+            "protocolVersion": 5.3
+        },
+        "resultConsumedAfter": {
+            "low": 125,
+            "high": 0
+        },
+        "resultAvailableAfter": {
+            "low": 4,
+            "high": 0
+        },
+        "database": {
+            "name": "neo4j"
+        }
+    }
+}
