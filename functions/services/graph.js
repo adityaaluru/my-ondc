@@ -1,18 +1,23 @@
 import neo4j from "neo4j-driver";
 import logger from "firebase-functions/logger";
-import fs from "fs";
-
-//Neo4j
-
+import axios from "axios";
 
 export class GraphService { 
     URI = 'neo4j+s://c692095c.databases.neo4j.io'
     USER = 'neo4j'
     PASSWORD = 'S9FZesHQALoOcO0hqIj2t-oZHAtu4DLpVY_NwT7CQzo'
+    OPENAI_KEY = 'Bearer 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'
     driver = {}
     resultNodes = {}
     resultEdges = {}
 
+    /** Neo4j Connection handling */
+    async openConnection(){
+        this.driver = await neo4j.driver(this.URI, neo4j.auth.basic(this.USER, this.PASSWORD))
+    }
+    async closeConnection(){
+        await this.driver.close()
+    }
     getResultNode(node,additionalProps){
         let nodeType = "";
         if(node.labels.length>0){
@@ -39,6 +44,19 @@ export class GraphService {
             }
         }
     }
+
+    /** OpenAI utility functions */
+    openaiClient = axios.create({
+        baseURL: 'https://api.openai.com/v1/',
+        timeout: 5000,
+        headers: {'Content-Type': 'application/json',
+    'Authorization': this.OPENAI_KEY}
+      });
+
+
+    /** Query and mapping functions */
+
+    //READ ALL CATEGORIES
     async readAllCategories(){
         const { records, summary } = await this.driver.executeQuery(
             'OPTIONAL MATCH (cat:Category)-[bt]-(sc:Category)-[po]-(p:Product) \
@@ -66,12 +84,6 @@ export class GraphService {
             }
         })
     }
-    async openConnection(){
-        this.driver = await neo4j.driver(this.URI, neo4j.auth.basic(this.USER, this.PASSWORD))
-    }
-    async closeConnection(){
-        await this.driver.close()
-    }
     transformToRawGraph(){
         const nodes = [];
         const edges = [];
@@ -86,16 +98,64 @@ export class GraphService {
             edges: edges
         }
     }
+
+    //SEMANTIC SEARCH ON PRODUCTS
+    async getEmbedding(inputString) {
+        let response = {};
+        const apiRes = await this.openaiClient.post('/embeddings',{
+            input: inputString,
+            model: "text-embedding-ada-002"
+        })
+        if(apiRes.status === 200){
+            const data = apiRes.data.data;
+            if(data.length>0){
+                response.vector = data[0].embedding;
+            }
+            response.usage = apiRes.data.usage;
+        }
+        return response;
+    }
+    async semanticQuery(queryVector,resultCount=10) {
+        const results = []
+        const { records, summary } = await this.driver.executeQuery(
+            "CALL db.index.vector.queryNodes('openai_vectors', $resultCount, $queryVector)\
+            YIELD node AS product, score\
+            RETURN product.id AS id, product.title AS title, product.description as description,score",
+            {queryVector: queryVector,
+            resultCount: resultCount}
+        )
+        records.forEach((record)=> {
+            const result = {}
+            if(record.get('id')){
+                result.id = record.get('id')
+            }
+            if(record.get('title')){
+                result.title = record.get('title')
+            }
+            if(record.get('description')){
+                result.description = record.get('description')
+            }
+            if(record.get('score')){
+                result.score = record.get('score')
+            }
+            results.push(result)
+        })
+        //console.log("Query results: "+JSON.stringify(resultsCat))
+        return results;
+    }
+
+
+    /** HTTP Handler functions */
     static async getAllCategories (request, response){
         const gs = new GraphService();
         try {
             await gs.openConnection();
             await gs.readAllCategories();
-            response.status(500).json(gs.transformToRawGraph())
+            response.status(200).json(gs.transformToRawGraph())
         } catch(err){
             logger.info("Received error: "+err.message)
             logger.info(JSON.stringify(err.stack))
-            response.json({
+            response.status(500).json({
                 errMsg: err.message,
                 errStack: JSON.stringify(err.stack)
             })
@@ -104,6 +164,33 @@ export class GraphService {
             await gs.closeConnection()
         }
     }
-    static async getProductsForCategory(request, response){
+    static async semanticSearchProducts(request, response){
+        const queryString = request.body?.query;
+        if(queryString){
+            const gs = new GraphService();
+            try {
+                await gs.openConnection();
+                console.log("Getting embeddings for input string - "+queryString)
+                const embeddingResponse = await gs.getEmbedding(queryString);
+                console.log("Embedding usage: "+JSON.stringify(embeddingResponse?.usage))
+    
+                const searchResults = await gs.semanticQuery(embeddingResponse.vector)
+                console.log("Retrived "+searchResults.length+" results")
+    
+                response.status(200).json({usage : embeddingResponse.usage, results: searchResults})
+            } catch(err){
+                logger.info("Received error: "+err.message)
+                logger.info(JSON.stringify(err.stack))
+                response.status(500).json({
+                    errMsg: err.message,
+                    errStack: JSON.stringify(err.stack)
+                })
+            }
+            finally{
+                await gs.closeConnection()
+            }
+        } else {
+            response.status(200).json({message: "Nothing to search! Send a 'query' property in the request payload"})
+        }
     }
 }

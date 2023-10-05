@@ -5,6 +5,7 @@
 
 Deploy the full project
 `firebase deploy`
+`firebase --debug deploy`
 
 Deploy only the functions in the project
 `firebase deploy --only functions`
