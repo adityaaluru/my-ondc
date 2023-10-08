@@ -1,4 +1,5 @@
 import neo4j from "neo4j-driver";
+import {int} from "neo4j-driver-core/lib/integer.js";
 import logger from "firebase-functions/logger";
 import axios from "axios";
 
@@ -17,6 +18,49 @@ export class GraphService {
     }
     async closeConnection(){
         await this.driver.close()
+    }
+
+    /** OpenAI Connection handling */
+    openaiClient = axios.create({
+        baseURL: 'https://api.openai.com/v1/',
+        timeout: 5000,
+        headers: {'Content-Type': 'application/json',
+    'Authorization': this.OPENAI_KEY}
+    });
+    
+    /** OpenAI utility functions */
+    async getEmbedding(inputString) {
+        let response = {};
+        const apiRes = await this.openaiClient.post('/embeddings',{
+            input: inputString,
+            model: "text-embedding-ada-002"
+        })
+        if(apiRes.status === 200){
+            const data = apiRes.data.data;
+            if(data.length>0){
+                response.vector = data[0].embedding;
+            }
+            response.usage = apiRes.data.usage;
+        }
+        return response;
+    }
+
+
+
+    /** Graph utility functions */
+    transformToRawGraph(){
+        const nodes = [];
+        const edges = [];
+        for(let field in this.resultNodes){
+            nodes.push(this.resultNodes[field])
+        }
+        for(let field in this.resultEdges){
+            edges.push(this.resultEdges[field])
+        }
+        return {
+            nodes: nodes,
+            edges: edges
+        }
     }
     getResultNode(node,additionalProps){
         let nodeType = "";
@@ -45,16 +89,7 @@ export class GraphService {
         }
     }
 
-    /** OpenAI utility functions */
-    openaiClient = axios.create({
-        baseURL: 'https://api.openai.com/v1/',
-        timeout: 5000,
-        headers: {'Content-Type': 'application/json',
-    'Authorization': this.OPENAI_KEY}
-      });
-
-
-    /** Query and mapping functions */
+    /** Graph query functions */
 
     //READ ALL CATEGORIES
     async readAllCategories(){
@@ -84,37 +119,36 @@ export class GraphService {
             }
         })
     }
-    transformToRawGraph(){
-        const nodes = [];
-        const edges = [];
-        for(let field in this.resultNodes){
-            nodes.push(this.resultNodes[field])
-        }
-        for(let field in this.resultEdges){
-            edges.push(this.resultEdges[field])
-        }
-        return {
-            nodes: nodes,
-            edges: edges
-        }
+    async readProductForCategory(categoryId,limit){
+        const { records, summary } = await this.driver.executeQuery(
+            'OPTIONAL MATCH (cat:Category{id: $categoryId})-[bt:BELONGS_TO]-(p:Product) \
+            RETURN cat,bt,p LIMIT $limit',
+            {categoryId: categoryId,limit: int(limit)}
+        )
+        records.forEach((record)=> {
+            if(record.get('cat')){
+                const catNode = record.get('cat')
+                if(!this.resultNodes[catNode.elementId]){
+                    this.resultNodes[catNode.elementId] = this.getResultNode(catNode);
+                }
+            }
+            if(record.get('p')){
+                const prodNode = record.get('p')
+                if(!this.resultNodes[prodNode.elementId]){
+                    delete prodNode.properties.openai_vector
+                    this.resultNodes[prodNode.elementId] = this.getResultNode(prodNode);
+                }
+            }
+            if(record.get('bt')){
+                const partOfRel = record.get('bt')
+                if(!this.resultEdges[partOfRel.elementId]){
+                    this.resultEdges[partOfRel.elementId] = this.getResultEdge(partOfRel);
+                }
+            }
+        })
     }
 
     //SEMANTIC SEARCH ON PRODUCTS
-    async getEmbedding(inputString) {
-        let response = {};
-        const apiRes = await this.openaiClient.post('/embeddings',{
-            input: inputString,
-            model: "text-embedding-ada-002"
-        })
-        if(apiRes.status === 200){
-            const data = apiRes.data.data;
-            if(data.length>0){
-                response.vector = data[0].embedding;
-            }
-            response.usage = apiRes.data.usage;
-        }
-        return response;
-    }
     async semanticQuery(queryVector,resultCount=10) {
         const results = []
         const { records, summary } = await this.driver.executeQuery(
@@ -151,6 +185,33 @@ export class GraphService {
         try {
             await gs.openConnection();
             await gs.readAllCategories();
+            response.status(200).json(gs.transformToRawGraph())
+        } catch(err){
+            logger.info("Received error: "+err.message)
+            logger.info(JSON.stringify(err.stack))
+            response.status(500).json({
+                errMsg: err.message,
+                errStack: JSON.stringify(err.stack)
+            })
+        }
+        finally{
+            await gs.closeConnection()
+        }
+    }
+    static async getProducts (request, response){
+        const categoryId = request.query?.categoryId;
+        let limit = 100;
+        if(!categoryId){
+            response.status(500).json({message: "'categoryId' query parameter is mandatory"})
+        }
+
+        if(Number.isInteger(parseInt(request.query.limit))){
+            limit = parseInt(request.query.limit);
+        }
+        const gs = new GraphService();
+        try {
+            await gs.openConnection();
+            await gs.readProductForCategory(categoryId,limit);
             response.status(200).json(gs.transformToRawGraph())
         } catch(err){
             logger.info("Received error: "+err.message)
