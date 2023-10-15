@@ -31,9 +31,9 @@ const search = onRequest(ONDCSearchService.search);
 const onSearch = onRequest(ONDCSearchService.onSearch);
 const productSearch = onRequest(ProductService.search);
 
-const getCategories = onRequest({ cors: false },GraphService.getAllCategories);
-const getProducts = onRequest({ cors: false },GraphService.getProducts);
-const semanticSearch = onRequest({ cors: false },GraphService.semanticSearchProducts);
+const getCategories = onRequest({ cors: true },GraphService.getAllCategories);
+const getProducts = onRequest({ cors: true },GraphService.getProducts);
+const semanticSearch = onRequest({ cors: true },GraphService.semanticSearchProducts);
 
 
 export {helloWorld,onSearch,search,productSearch,getCategories,getProducts,semanticSearch};
