@@ -34,6 +34,6 @@ const productSearch = onRequest(ProductService.search);
 const getCategories = onRequest({ cors: true },GraphService.getAllCategories);
 const getProducts = onRequest({ cors: true },GraphService.getProducts);
 const semanticSearch = onRequest({ cors: true },GraphService.semanticSearchProducts);
+const semanticSearchGraph = onRequest({ cors: true },GraphService.semanticSearchProductsGraph);
 
-
-export {helloWorld,onSearch,search,productSearch,getCategories,getProducts,semanticSearch};
+export {helloWorld,onSearch,search,productSearch,getCategories,getProducts,semanticSearch,semanticSearchGraph};

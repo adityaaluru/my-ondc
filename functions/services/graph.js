@@ -178,7 +178,50 @@ export class GraphService {
         return results;
     }
 
+    async semanticQueryGraph(queryVector,resultCount=10) {
+        const { records, summary } = await this.driver.executeQuery(
+            "CALL db.index.vector.queryNodes('openai_vectors', $resultCount, $queryVector)\
+            YIELD node AS product, score\
+            OPTIONAL MATCH (cat:Category)-[po]-(sc:Category)-[bt]-(p:Product{id: product.id}) \
+            RETURN cat, po, sc, bt, p",
+            {queryVector: queryVector,
+            resultCount: resultCount}
+        )
+        records.forEach((record)=> {
+            if(record.get('cat')){
+                const catNode = record.get('cat')
+                if(!this.resultNodes[catNode.elementId]){
+                    this.resultNodes[catNode.elementId] = this.getResultNode(catNode);
+                }
+            }
+            if(record.get('sc')){
+                const scatNode = record.get('sc')
+                if(!this.resultNodes[scatNode.elementId]){
+                    this.resultNodes[scatNode.elementId] = this.getResultNode(scatNode);
+                }
+            }
+            if(record.get('p')){
+                const prodNode = record.get('p')
+                if(!this.resultNodes[prodNode.elementId]){
+                    delete prodNode.properties.openai_vector
+                    this.resultNodes[prodNode.elementId] = this.getResultNode(prodNode);
+                }
+            }
+            if(record.get('po')){
+                const partOfRel = record.get('po')
+                if(!this.resultEdges[partOfRel.elementId]){
+                    this.resultEdges[partOfRel.elementId] = this.getResultEdge(partOfRel);
+                }
+            }
+            if(record.get('bt')){
+                const belongsToRel = record.get('bt')
+                if(!this.resultEdges[belongsToRel.elementId]){
+                    this.resultEdges[belongsToRel.elementId] = this.getResultEdge(belongsToRel);
+                }
+            }
 
+        })
+    }
     /** HTTP Handler functions */
     static async getAllCategories (request, response){
         const gs = new GraphService();
@@ -239,6 +282,35 @@ export class GraphService {
                 console.log("Retrived "+searchResults.length+" results")
     
                 response.status(200).json({usage : embeddingResponse.usage, results: searchResults})
+            } catch(err){
+                logger.info("Received error: "+err.message)
+                logger.info(JSON.stringify(err.stack))
+                response.status(500).json({
+                    errMsg: err.message,
+                    errStack: JSON.stringify(err.stack)
+                })
+            }
+            finally{
+                await gs.closeConnection()
+            }
+        } else {
+            response.status(200).json({message: "Nothing to search! Send a 'query' property in the request payload"})
+        }
+    }
+    static async semanticSearchProductsGraph(request, response){
+        const queryString = request.body?.query;
+        if(queryString){
+            const gs = new GraphService();
+            try {
+                await gs.openConnection();
+                console.log("Getting embeddings for input string - "+queryString)
+                const embeddingResponse = await gs.getEmbedding(queryString);
+                console.log("Embedding usage: "+JSON.stringify(embeddingResponse?.usage))
+    
+                await gs.semanticQueryGraph(embeddingResponse.vector)
+                console.log("Retreived nodes")
+    
+                response.status(200).json({usage : embeddingResponse.usage, results: gs.transformToRawGraph()})
             } catch(err){
                 logger.info("Received error: "+err.message)
                 logger.info(JSON.stringify(err.stack))

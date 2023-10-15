@@ -63,6 +63,12 @@
         "pinTag": true
       },
       {
+        "source": "/semantic-search-graph",
+        "function": "semanticSearchGraph",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
