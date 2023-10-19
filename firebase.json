@@ -69,6 +69,30 @@
         "pinTag": true
       },
       {
+        "source": "/rewrite-description",
+        "function": "rewriteDescription",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
+        "source": "/create-collection-node",
+        "function": "createCollectionNode",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
+        "source": "/add-products-to-collection",
+        "function": "associateProductsToCollection",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
+        "source": "/delete-collection",
+        "function": "deleteCollectionNode",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
