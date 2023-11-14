@@ -324,7 +324,17 @@ export class GraphService {
                 productsToAdd.push(record.get('p.id'))
             }
         })
-        return productsToAdd;
+        if(productsToAdd.length > 0){
+            await this.driver.executeQuery(
+                'UNWIND $productsToAdd as productToAdd\
+                MATCH (p:Product{id: productToAdd})\
+                MATCH (c:Collection{id: $collectionId}) \
+                MERGE (p)-[b:BELONGS_TO]->(c)\
+                RETURN p,b,c',
+                {collectionId: collectionId,productsToAdd: productsToAdd}
+            )
+        }
+        return productsToAdd.length;
     }
 
     //SEMANTIC SEARCH ON PRODUCTS
@@ -705,10 +715,10 @@ export class GraphService {
                 if(completionRes.messages && completionRes.messages.length > 0){
                     const productFilterQuery = completionRes.messages[0]
                     await gs.openConnection();
-                    const productsToAdd = await gs.addProductsToCollection(productFilterQuery,collectionId)
-                    response.status(200).json({usage: usage,productsToAdd: productsToAdd})
+                    const productsAdded = await gs.addProductsToCollection(productFilterQuery,collectionId)
+                    response.status(200).json({usage: usage,productsAdded: productsAdded})
                 } else {
-                    response.status(400).json({usage: usage,message: "Unable to understand the condition string!"})
+                    response.status(400).json({usage: usage,message: "Unable to comprehend the condition string!"})
                 }
 
             } catch(err){
