@@ -32,6 +32,7 @@ const onSearch = onRequest(ONDCSearchService.onSearch);
 const productSearch = onRequest(ProductService.search);
 
 const getCategories = onRequest({ cors: true },GraphService.getAllCategories);
+const getCollections = onRequest({ cors: true },GraphService.getAllCollections);
 const getProducts = onRequest({ cors: true },GraphService.getProducts);
 const semanticSearch = onRequest({ cors: true },GraphService.semanticSearchProducts);
 const semanticSearchGraph = onRequest({ cors: true },GraphService.semanticSearchProductsGraph);
@@ -39,4 +40,6 @@ const rewriteDescription = onRequest({ cors: true },GraphService.rewriteDescript
 const createCollectionNode = onRequest({ cors: true },GraphService.createCollectionNode);
 const associateProductsToCollection = onRequest({ cors: true },GraphService.associateProductsToCollection);
 const deleteCollectionNode = onRequest({ cors: true },GraphService.deleteCollectionNode);
-export {helloWorld,onSearch,search,productSearch,getCategories,getProducts,semanticSearch,semanticSearchGraph,rewriteDescription,createCollectionNode,associateProductsToCollection,deleteCollectionNode};
+const getProductRelations = onRequest({ cors: true },GraphService.getProductRelations);
+
+export {helloWorld,onSearch,search,productSearch,getCategories,getCollections,getProducts,semanticSearch,semanticSearchGraph,rewriteDescription,createCollectionNode,associateProductsToCollection,deleteCollectionNode,getProductRelations};

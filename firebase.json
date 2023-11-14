@@ -51,6 +51,12 @@
         "pinTag": true
       },
       {
+        "source": "/collections",
+        "function": "getCollections",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
         "source": "/products",
         "function": "getProducts",
         "region": "us-central1",
@@ -89,6 +95,12 @@
       {
         "source": "/delete-collection",
         "function": "deleteCollectionNode",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
+        "source": "/product-relations",
+        "function": "getProductRelations",
         "region": "us-central1",
         "pinTag": true
       },

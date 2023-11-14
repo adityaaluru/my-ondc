@@ -7,7 +7,7 @@ export class GraphService {
     URI = 'neo4j+s://c692095c.databases.neo4j.io'
     USER = 'neo4j'
     PASSWORD = 'S9FZesHQALoOcO0hqIj2t-oZHAtu4DLpVY_NwT7CQzo'
-    OPENAI_KEY = 'Bearer sk-egvzAPIsnezgECRq5gJraT3BlbkFJr8uguUtKpCGfzGOtLRAK'
+    OPENAI_KEY = 'Bearer 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'
     driver = {}
     resultNodes = {}
     resultEdges = {}
@@ -23,7 +23,7 @@ export class GraphService {
     /** OpenAI Connection handling */
     openaiClient = axios.create({
         baseURL: 'https://api.openai.com/v1/',
-        timeout: 15000,
+        timeout: 60000,
         headers: {'Content-Type': 'application/json',
     'Authorization': this.OPENAI_KEY}
     });
@@ -142,6 +142,25 @@ export class GraphService {
             }
         })
     }
+
+    async readAllCollections(){
+        const { records, summary } = await this.driver.executeQuery(
+            'MATCH (col:Collection) \
+            OPTIONAL MATCH (col)-[]-(p:Product)\
+            RETURN col,count(p) as productCount \
+            ORDER BY productCount DESC'
+        )
+        records.forEach((record)=> {
+            if(record.get('col')){
+                const colNode = record.get('col')
+                if(!this.resultNodes[colNode.elementId]){
+                    this.resultNodes[colNode.elementId] = this.getResultNode(colNode,{productCount: record.get('productCount').toNumber()});
+                }
+            }
+        })
+
+    }
+
     async getCollection(collectionId){
         let colNode = {}
         const { records, summary } = await this.driver.executeQuery(
@@ -191,6 +210,50 @@ export class GraphService {
             }
         })
     }
+
+    async readProductRelations(productId,limit){
+        const { records, summary } = await this.driver.executeQuery(
+            'MATCH (p:Product{id: $productId}) \
+            MATCH (cat:Category)-[bt]-(p)\
+            MATCH (col:Collection)-[btcol]-(p)\
+            RETURN p,cat,bt,col,btcol LIMIT $limit',
+            {productId: productId, limit: int(limit)}
+        )
+        records.forEach((record)=> {
+            if(record.get('p')){
+                const prodNode = record.get('p')
+                if(!this.resultNodes[prodNode.elementId]){
+                    delete prodNode.properties.openai_vector
+                    this.resultNodes[prodNode.elementId] = this.getResultNode(prodNode);
+                }
+            }
+            if(record.get('cat')){
+                const catNode = record.get('cat')
+                if(!this.resultNodes[catNode.elementId]){
+                    this.resultNodes[catNode.elementId] = this.getResultNode(catNode);
+                }
+            }
+            if(record.get('col')){
+                const colNode = record.get('col')
+                if(!this.resultNodes[colNode.elementId]){
+                    this.resultNodes[colNode.elementId] = this.getResultNode(colNode);
+                }
+            }
+            if(record.get('bt')){
+                const belongsToRel = record.get('bt')
+                if(!this.resultEdges[belongsToRel.elementId]){
+                    this.resultEdges[belongsToRel.elementId] = this.getResultEdge(belongsToRel);
+                }
+            }
+            if(record.get('btcol')){
+                const belongsToRelCol = record.get('btcol')
+                if(!this.resultEdges[belongsToRelCol.elementId]){
+                    this.resultEdges[belongsToRelCol.elementId] = this.getResultEdge(belongsToRelCol);
+                }
+            }
+        })
+    }
+
     async readProductForCollection(collectionId,limit){
         const { records, summary } = await this.driver.executeQuery(
             'OPTIONAL MATCH (col:Collection{id: $collectionId})-[bt:BELONGS_TO]-(p:Product) \
@@ -368,6 +431,24 @@ export class GraphService {
         try {
             await gs.openConnection();
             await gs.readAllCategories();
+            response.status(200).json(gs.transformToRawGraph())
+        } catch(err){
+            logger.info("Received error: "+err.message)
+            logger.info(JSON.stringify(err.stack))
+            response.status(500).json({
+                errMsg: err.message,
+                errStack: JSON.stringify(err.stack)
+            })
+        }
+        finally{
+            await gs.closeConnection()
+        }
+    }
+    static async getAllCollections (request, response){
+        const gs = new GraphService();
+        try {
+            await gs.openConnection();
+            await gs.readAllCollections();
             response.status(200).json(gs.transformToRawGraph())
         } catch(err){
             logger.info("Received error: "+err.message)
@@ -601,6 +682,32 @@ export class GraphService {
             }
         } else {
             response.status(200).json({message: "Missing mandatory parameters! Send a 'collectionId' property in the request payload"})
+        }
+    }
+    static async getProductRelations(request, response){
+        const productId = request.query?.id;
+        let limit = 100;
+        if(!productId){
+            response.status(500).json({message: "'id' parameter in request payload is mandatory"})
+        }
+        if(Number.isInteger(parseInt(request.query.limit))){
+            limit = parseInt(request.query.limit)
+        }
+        const gs = new GraphService();
+        try {
+            await gs.openConnection();
+            await gs.readProductRelations(productId,limit)
+            response.status(200).json(gs.transformToRawGraph())
+        } catch(err){
+            logger.info("Received error: "+err.message)
+            logger.info(JSON.stringify(err.stack))
+            response.status(500).json({
+                errMsg: err.message,
+                errStack: JSON.stringify(err.stack)
+            })
+        }
+        finally{
+            await gs.closeConnection()
         }
     }
 }
