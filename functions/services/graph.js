@@ -2,6 +2,8 @@ import neo4j from "neo4j-driver";
 import {int} from "neo4j-driver-core/lib/integer.js";
 import logger from "firebase-functions/logger";
 import axios from "axios";
+import { cypherQueryPrompt } from "../prompts/cypherQuery.js";
+import Mustache from "mustache"
 
 export class GraphService { 
     URI = 'neo4j+s://c692095c.databases.neo4j.io'
@@ -142,7 +144,6 @@ export class GraphService {
             }
         })
     }
-
     async readAllCollections(){
         const { records, summary } = await this.driver.executeQuery(
             'MATCH (col:Collection) \
@@ -160,7 +161,6 @@ export class GraphService {
         })
 
     }
-
     async getCollection(collectionId){
         let colNode = {}
         const { records, summary } = await this.driver.executeQuery(
@@ -210,7 +210,6 @@ export class GraphService {
             }
         })
     }
-
     async readProductRelations(productId,limit){
         const { records, summary } = await this.driver.executeQuery(
             'MATCH (p:Product{id: $productId}) \
@@ -253,7 +252,6 @@ export class GraphService {
             }
         })
     }
-
     async readProductForCollection(collectionId,limit){
         const { records, summary } = await this.driver.executeQuery(
             'OPTIONAL MATCH (col:Collection{id: $collectionId})-[bt:BELONGS_TO]-(p:Product) \
@@ -318,6 +316,16 @@ export class GraphService {
         })
         return result;
     }
+    async addProductsToCollection(productFilterQuery,collectionId){
+        const { records, summary } = await this.driver.executeQuery(productFilterQuery)
+        const productsToAdd = []
+        records.forEach((record)=> {
+            if(record.get('p.id')){
+                productsToAdd.push(record.get('p.id'))
+            }
+        })
+        return productsToAdd;
+    }
 
     //SEMANTIC SEARCH ON PRODUCTS
     async semanticQuery(queryVector,resultCount=10) {
@@ -380,7 +388,6 @@ export class GraphService {
         //console.log("Query results: "+JSON.stringify(resultsCat))
         return results;
     }
-
     async semanticQueryGraph(queryVector,resultCount=10) {
         const { records, summary } = await this.driver.executeQuery(
             "CALL db.index.vector.queryNodes('openai_vectors', $resultCount, $queryVector)\
@@ -425,6 +432,7 @@ export class GraphService {
 
         })
     }
+
     /** HTTP Handler functions */
     static async getAllCategories (request, response){
         const gs = new GraphService();
@@ -682,6 +690,40 @@ export class GraphService {
             }
         } else {
             response.status(200).json({message: "Missing mandatory parameters! Send a 'collectionId' property in the request payload"})
+        }
+    }
+    static async associateProductsToCollectionV2(request, response){
+        const collectionId = request.body?.collectionId;
+        const conditionString = request.body?.conditionString;
+        if(collectionId && conditionString){
+            const gs = new GraphService();
+            try {
+                const finalPrompt = Mustache.render(cypherQueryPrompt,{condition: conditionString})
+                const completionRes = await gs.getChatCompletion(finalPrompt,1)
+                const usage = completionRes.usage;
+                console.log("Completion response: "+JSON.stringify(completionRes))
+                if(completionRes.messages && completionRes.messages.length > 0){
+                    const productFilterQuery = completionRes.messages[0]
+                    await gs.openConnection();
+                    const productsToAdd = await gs.addProductsToCollection(productFilterQuery,collectionId)
+                    response.status(200).json({usage: usage,productsToAdd: productsToAdd})
+                } else {
+                    response.status(400).json({usage: usage,message: "Unable to understand the condition string!"})
+                }
+
+            } catch(err){
+                logger.info("Received error: "+err.message)
+                logger.info(JSON.stringify(err.stack))
+                response.status(500).json({
+                    errMsg: err.message,
+                    errStack: JSON.stringify(err.stack)
+                })
+            }
+            finally{
+                await gs.closeConnection()
+            }
+        } else {
+            response.status(400).json({message: "Missing mandatory parameters! Send 'collectionId' and 'conditionString' property in the request payload"})
         }
     }
     static async getProductRelations(request, response){

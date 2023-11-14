@@ -1,8 +1,4 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
   "functions": [
     {
       "source": "functions",
@@ -93,6 +89,12 @@
         "pinTag": true
       },
       {
+        "source": "/add-products-to-collection-v2",
+        "function": "associateProductsToCollectionV2",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
         "source": "/delete-collection",
         "function": "deleteCollectionNode",
         "region": "us-central1",
@@ -101,6 +103,18 @@
       {
         "source": "/product-relations",
         "function": "getProductRelations",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
+        "source": "/arrange-products",
+        "function": "arrangeProducts",
+        "region": "us-central1",
+        "pinTag": true
+      },
+      {
+        "source": "/cleanup-collections",
+        "function": "cleanUpCollections",
         "region": "us-central1",
         "pinTag": true
       },
