@@ -175,6 +175,38 @@ export class GraphService {
         })
         return {...colNode.properties};
     }
+    async getCollectionTreeNodes(collectionId,limit){
+        let colNode = {}
+        const { records, summary } = await this.driver.executeQuery(
+            'MATCH (c:Collection {id: $collectionId})-[p:PART_OF]-+(cc:Collection) \
+            RETURN c,p,cc LIMIT $limit',
+            {collectionId: collectionId, limit: int(limit)}
+        )
+        records.forEach((record)=> {
+            if(record.get('c')){
+                const colNode = record.get('c')
+                if(!this.resultNodes[colNode.elementId]){
+                    this.resultNodes[colNode.elementId] = this.getResultNode(colNode);
+                }
+            }
+            if(record.get('cc')){
+                const colNode = record.get('cc')
+                if(!this.resultNodes[colNode.elementId]){
+                    this.resultNodes[colNode.elementId] = this.getResultNode(colNode);
+                }
+            }
+            if(record.get('p')){
+                const partOfRels = record.get('p')
+                if(Array.isArray(partOfRels)){
+                    for(let partOfRel of partOfRels){
+                        if(!this.resultEdges[partOfRel.elementId]){
+                            this.resultEdges[partOfRel.elementId] = this.getResultEdge(partOfRel);
+                        }
+                    }
+                }
+            }
+        })
+    }
     async deleteCollection(collectionId){
         const { records, summary } = await this.driver.executeQuery(
             'MATCH (col:Collection {id: $collectionId}) \
@@ -749,6 +781,29 @@ export class GraphService {
         try {
             await gs.openConnection();
             await gs.readProductRelations(productId,limit)
+            response.status(200).json(gs.transformToRawGraph())
+        } catch(err){
+            logger.info("Received error: "+err.message)
+            logger.info(JSON.stringify(err.stack))
+            response.status(500).json({
+                errMsg: err.message,
+                errStack: JSON.stringify(err.stack)
+            })
+        }
+        finally{
+            await gs.closeConnection()
+        }
+    }
+    static async getCollectionTree(request,response){
+        const collectionId = request.query?.collectionId;
+        let limit = 100;
+        if(!collectionId){
+            response.status(500).json({message: "'collectionId' query parameter is mandatory"})
+        }
+        const gs = new GraphService();
+        try {
+            await gs.openConnection();
+            await gs.getCollectionTreeNodes(collectionId,limit)
             response.status(200).json(gs.transformToRawGraph())
         } catch(err){
             logger.info("Received error: "+err.message)

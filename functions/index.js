@@ -42,5 +42,6 @@ const associateProductsToCollection = onRequest({ cors: true },GraphService.asso
 const associateProductsToCollectionV2 = onRequest({ cors: true },GraphService.associateProductsToCollectionV2);
 const deleteCollectionNode = onRequest({ cors: true },GraphService.deleteCollectionNode);
 const getProductRelations = onRequest({ cors: true },GraphService.getProductRelations);
+const getCollectionTree = onRequest({ cors: true },GraphService.getCollectionTree);
 
-export {helloWorld,onSearch,search,productSearch,getCategories,getCollections,getProducts,semanticSearch,semanticSearchGraph,rewriteDescription,createCollectionNode,associateProductsToCollection,associateProductsToCollectionV2,deleteCollectionNode,getProductRelations};
+export {helloWorld,onSearch,search,productSearch,getCategories,getCollections,getProducts,semanticSearch,semanticSearchGraph,rewriteDescription,createCollectionNode,associateProductsToCollection,associateProductsToCollectionV2,deleteCollectionNode,getProductRelations,getCollectionTree};
